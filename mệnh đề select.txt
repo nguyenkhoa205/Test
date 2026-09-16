@@ -1,0 +1,91 @@
+*Mệnh đề SELECT:
+
+- Hiển thị tất cả các cột trong bảng:*
+-khi làm việc trên nhiều bảng, có các cột thuộc tính giống nhau hiển thị cột chung của các bảng: <Tên bảng>.<tên cột>
+-đổi tên cột tành tên mới dùng AS:<tênn cột cũ> AS <tên cột mới>
+
+- các phép toán thực hiện: +, -, *,/
+VD:hiển thị mã hàng, tên hàng, số lượng, giá bán, thành tiền mỗi mặt hàng bán ra trg đó:
+     thành tiền = số lượng *giá bán
+
+-từ khóa DISTINCT: loiạ bỏ kết quả dữ liệu trùng nhau
+     
+
+************
+*Mệnh đề FROM:
+
+INNER JOIN/JOIN
+-cú pháp: 
++<tên bảng 1>INNER JOIN/JOIN<ten bảng 2> ON <tên bảng 1>.<cột thuộc tính chung>=<tên bảng 2>.<cột thuộc tính chung>
+vd:FROM MATHANG INNER JOIN CHITEITDATHANG ON MATHANG.MAHANG=CHITIETDATHANG=MAHANG
+
+************
+*Mệnh đề WHERE:
+
+-các phéo toán ssanh:
+	<>	khác
+	!>	ko lớn hơn
+	!<	ko nhỏ hơn
+-khi ssanh vs 1 chuổi tiếng việt như HOTEN = 'Nguyễn Văn Khoa'
+-Between a and b có nghĩa là >=a hoặc <=b
+vd NgaySinh Between a and b
+-like% 
+vd: cho bt sv có họ Nguyễn dùng: Where HoDem like N'Nguyễn%'
+    cho bt sdt nv có số kết thúc là 81: Where  Dienthoai like'%81'
+    cho bt số xe có xuất hiện số 81: Where Biensoxe like '%81%'
+
+**************
+*mệnh đề sắp xếp ORDER BY:
+
+<tên cột sx> ASC(tăng dần) hoặc DESC(giảm dần)
+vs order by Ten ASC(DESC)
+
+***************
+**Nhóm hàm thống kê:
+
+SUM(tổng), COUNT(thống kê số lượng ), AVG, MAX, MIN
+*Lưu ý:
+-hàm yhống kê nằm trg select
+-khi sử dụng hàm thống kê: GROUP BY
+select
+from
+where
+group by
+order by
+having
+-các cột nằm trg SELECT thì bắt buộc nằm trg GROUP BY trừ nhóm hàng thống kê
+vd:Tính tổng dố lượng bán ra của mõi mặt hàng
+hiển thị mã hàng, tên hàng, SUM(số lượng)
+bảng: mathang, chitietmathang
+group by: mathang, tenhang
+
+HAVING
+*lưu ý:
+-đk trên nhóm hàm thống kê
+
+*************
+**SELECT lồng nhau:
+*dạng 1: từng/chưa từng: IN/NOT IN
+select
+from
+where <cột đk>IM/NOT IN (selcect
+				 from...)
+vd: cho bt nhà cung cấp nào đã từng đăng ký cung cấp
+select manhacc
+from nhacungcap
+where manhacc IN(select distinct manhacc)
+			from dangkycungcap
+*dạng 2: nhiều nhất/ít nhất
+select
+from
+where
+group by
+order by
+having <hàm thống kê> >=ALL  (select <hàm thống kê>
+					from
+					where
+					group by
+					order by)
+
+****************
+*mệnh đề update:
